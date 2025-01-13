@@ -1,0 +1,214 @@
+.ticket-booth-container {
+    position: relative;
+    width: 400px;
+    height: 500px;
+  }
+  
+  .ticket-booth {
+    position: relative;
+    width: 320px;
+    height: 420px;
+    margin: 40px auto;
+    background: linear-gradient(135deg, #9a0000, #660000);
+    border-radius: 15px;
+    box-shadow: 
+      0 10px 30px rgba(0, 0, 0, 0.4),
+      inset 0 -5px 15px rgba(0, 0, 0, 0.3),
+      inset 0 5px 15px rgba(255, 255, 255, 0.1);
+  }
+  
+  /* Booth Top */
+  .booth-top {
+    position: absolute;
+    top: -20px;
+    left: 0;
+    right: 0;
+    height: 40px;
+    background: linear-gradient(to bottom, #800000, #660000);
+    border-radius: 10px 10px 0 0;
+    border-top: 2px solid #aa0000;
+  }
+  
+  .booth-crown {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    height: 20px;
+    background: #800000;
+    border-radius: 10px 10px 0 0;
+    border-top: 2px solid #aa0000;
+  }
+  
+  /* Ticket Banner */
+  .ticket-banner {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(to bottom, #FFD700, #FFA500);
+    padding: 12px 35px;
+    border-radius: 12px;
+    box-shadow: 
+      0 4px 15px rgba(0, 0, 0, 0.3),
+      inset 0 2px 4px rgba(255, 255, 255, 0.5),
+      inset 0 -2px 4px rgba(0, 0, 0, 0.2);
+    border: 2px solid #FFE55C;
+    z-index: 2;
+  }
+  
+  .banner-text {
+    font-family: 'Arial Black', sans-serif;
+    font-size: 28px;
+    font-weight: 900;
+    color: #880000;
+    text-shadow: 
+      2px 2px 0 #FFE55C,
+      -1px -1px 0 rgba(0, 0, 0, 0.2);
+    letter-spacing: 3px;
+  }
+  
+  /* Booth Body */
+  .booth-body {
+    position: relative;
+    height: 100%;
+    display: flex;
+    padding: 20px;
+  }
+  
+  /* Column Details */
+  .booth-column {
+    width: 40px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 20px 0;
+  }
+  
+  .column-detail {
+    height: 60px;
+    background: linear-gradient(to right, #aa0000, #880000);
+    border-radius: 4px;
+    box-shadow: 
+      inset 0 2px 4px rgba(255, 255, 255, 0.1),
+      inset 0 -2px 4px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Window Frame */
+  .booth-window-frame {
+    flex-grow: 1;
+    margin: 0 10px;
+    position: relative;
+  }
+  
+  .window-top-detail {
+    height: 20px;
+    background: #aa0000;
+    border-radius: 4px 4px 0 0;
+    margin-bottom: 10px;
+  }
+  
+  .booth-window {
+    height: calc(100% - 130px);
+    background: #1a0404;
+    border: 6px solid #aa0000;
+    border-radius: 15px;
+    box-shadow: 
+      inset 0 0 30px rgba(0, 0, 0, 0.7),
+      0 0 10px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .window-glass {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 30px;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.4));
+    border-radius: 8px 8px 0 0;
+  }
+  
+  .window-ledge {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 30px;
+    background: #800000;
+    border-top: 2px solid #aa0000;
+  }
+  
+  /* Booth Base */
+  .booth-base {
+    position: absolute;
+    bottom: -20px;
+    left: -10px;
+    right: -10px;
+    height: 40px;
+    background: linear-gradient(to bottom, #800000, #4d0000);
+    border-radius: 0 0 15px 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  }
+  
+  .base-detail {
+    position: absolute;
+    top: 10px;
+    left: 20px;
+    right: 20px;
+    height: 8px;
+    background: #aa0000;
+    border-radius: 4px;
+  }
+  
+  /* Flame and Tickets */
+  .flame-container {
+    position: relative;
+    width: 180px;
+    height: 180px;
+    margin: 10px auto;
+  }
+  
+  .flame-image {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  
+  .burning-ticket {
+    position: absolute;
+    font-weight: bold;
+    text-shadow: 0 0 10px currentColor;
+    font-size: 1em;
+  }
+  
+  @keyframes ticketBurn {
+    0% { 
+      opacity: 0; 
+      transform: translateY(5px) scale(0.8); 
+    }
+    20% { 
+      opacity: 1; 
+      transform: translateY(0) scale(1); 
+    }
+    100% { 
+      opacity: 0; 
+      transform: translateY(-30px) scale(1.2); 
+    }
+  }
+  
+  /* Responsive Adjustments */
+  @media (max-width: 480px) {
+    .ticket-booth {
+      width: 280px;
+      height: 380px;
+    }
+  
+    .banner-text {
+      font-size: 24px;
+    }
+  }
