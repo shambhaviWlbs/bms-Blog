@@ -1,0 +1,251 @@
+/* Burn Animation Styles */
+@keyframes paperCurl {
+    0% {
+      transform: scale(1) rotate(0deg);
+    }
+    30% {
+      transform: scale(0.95) rotate(2deg);
+    }
+    100% {
+      transform: scale(0.9) rotate(5deg);
+    }
+  }
+  
+  @keyframes charEffect {
+    0% {
+      opacity: 0;
+      background-position: 0% 0%;
+    }
+    100% {
+      opacity: 1;
+      background-position: 100% 100%;
+    }
+  }
+  
+  @keyframes embers {
+    0% {
+      transform: translateY(0) translateX(0) rotate(0deg);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(-100px) translateX(var(--x-offset)) rotate(var(--rotation));
+      opacity: 0;
+    }
+  }
+  
+  @keyframes edgeBurn {
+    0% {
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    }
+    100% {
+      clip-path: polygon(
+        var(--corner1-x) var(--corner1-y),
+        var(--corner2-x) var(--corner2-y),
+        var(--corner3-x) var(--corner3-y),
+        var(--corner4-x) var(--corner4-y)
+      );
+    }
+  }
+  
+  @keyframes glow {
+    0%, 100% {
+      box-shadow: 0 0 15px rgba(255, 166, 0, 0.6),
+                  0 0 30px rgba(255, 166, 0, 0.4),
+                  0 0 45px rgba(255, 166, 0, 0.2);
+    }
+    50% {
+      box-shadow: 0 0 20px rgba(255, 166, 0, 0.8),
+                  0 0 40px rgba(255, 166, 0, 0.6),
+                  0 0 60px rgba(255, 166, 0, 0.4);
+    }
+  }
+  
+  @keyframes burn {
+    0% {
+      opacity: 1;
+      transform: scale(1) rotate(0deg);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(0) rotate(5deg);
+    }
+  }
+  
+  @keyframes particles {
+    0% {
+      transform: translateY(0) scale(1);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(-50px) scale(0);
+      opacity: 0;
+    }
+  }
+  
+  .ember {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: #ff4d00;
+    border-radius: 50%;
+    filter: blur(1px);
+    animation: embers 2s ease-out forwards;
+  }
+  
+  .char-line {
+    position: absolute;
+    background: linear-gradient(to right, transparent, #000, transparent);
+    height: 1px;
+    width: 0;
+    transition: width 0.5s ease-in;
+  }
+  
+  .burning-edges {
+    position: absolute;
+    inset: 0;
+    animation: edgeBurn 2.5s ease-in-out forwards;
+  }
+  
+  .burning-particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: #ff4d00;
+    border-radius: 50%;
+    filter: blur(1px);
+    opacity: 0;
+    animation: particles 1.5s ease-out forwards;
+  }
+  
+  .ticket-burn-effect {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .disintegrating {
+    pointer-events: none;
+  }
+  
+  /* Hover and Interaction Styles */
+  .draggable-ticket:not(.disintegrating) {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .draggable-ticket:hover:not(.disintegrating) {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(255, 166, 0, 0.3);
+  }
+  
+  .draggable-ticket:active:not(.disintegrating) {
+    transform: scale(0.98);
+    cursor: grabbing;
+  }
+  
+  .draggable-ticket.near-fire:not(.disintegrating) {
+    animation: glow 1.5s ease-in-out infinite;
+  }
+  
+  /* Found State Styles */
+  .draggable-ticket.found:not(.disintegrating) {
+    opacity: 1 !important;
+    transform: scale(1.1);
+    box-shadow: 0 0 30px rgba(255, 223, 0, 0.4);
+  }
+  
+  /* Hidden State Styles */
+  .draggable-ticket:not(.found):not(:hover) {
+    filter: blur(0.5px);
+    mix-blend-mode: multiply;
+  }
+  
+  /* Burning State Styles */
+  .ticket-burn-effect::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, 
+      transparent,
+      rgba(255, 68, 0, 0.2),
+      rgba(255, 68, 0, 0.4)
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  .ticket-burn-effect.burning::before {
+    opacity: 1;
+  }
+  
+  /* Particle Effects */
+  .particle-container {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+  
+  .ash-particle {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: #4a4a4a;
+    border-radius: 50%;
+    opacity: 0.6;
+  }
+  
+  /* Alert Styles */
+  .ticket-alert {
+    animation: slideIn 0.5s ease-out forwards;
+  }
+  
+  @keyframes slideIn {
+    from {
+      transform: translateY(-100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  /* Progress Indicator */
+  .burn-progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    background: linear-gradient(to right, #ff4d00, #ffd700);
+    transition: width 0.3s ease;
+  }
+  
+  /* Touch Device Optimizations */
+  @media (hover: none) {
+    .draggable-ticket:not(.disintegrating) {
+      transform: scale(1.02);
+      opacity: 0.9;
+    }
+    
+    .draggable-ticket.found:not(.disintegrating) {
+      transform: scale(1.05);
+    }
+  }
+  
+  /* Accessibility */
+  .draggable-ticket:focus-visible {
+    outline: 2px solid #ffd700;
+    outline-offset: 2px;
+  }
+  
+  /* Performance Optimizations */
+  .draggable-ticket {
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+  }
+  @media (max-width: 768px) {
+  .backdrop-blur-sm{
+    text-align: center;
+    width:92%;
+    height: 55px;
+  }
+}

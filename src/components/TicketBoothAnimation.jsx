@@ -23,7 +23,35 @@ const TicketBoothAnimation = () => {
     Array.from({ length: 5 }, (_, i) => `/images/blueflame${i + 1}.svg`),
     Array.from({ length: 5 }, (_, i) => `/images/purpleflame${i + 1}.svg`),
   ];
-
+  useEffect(() => {
+    const flameContainer = document.querySelector('.flame-container');
+    
+    const handleTicketBurn = (event) => {
+      setBurningTickets(prev => [
+        ...prev,
+        {
+          id: Math.random(),
+          text: event.detail.text,
+          className: event.detail.className,
+          x: Math.random() * 70 + 15,
+          y: Math.random() * 60 + 20,
+          scale: Math.random() * 0.5 + 0.7,
+          duration: Math.random() * 2 + 2,
+          rotation: Math.random() * 20 - 10,
+        }
+      ]);
+    };
+  
+    if (flameContainer) {
+      flameContainer.addEventListener('ticketBurn', handleTicketBurn);
+    }
+  
+    return () => {
+      if (flameContainer) {
+        flameContainer.removeEventListener('ticketBurn', handleTicketBurn);
+      }
+    };
+  }, []);
   useEffect(() => {
     const frameInterval = setInterval(() => {
       setCurrentFrame(prev => (prev + 1) % 5);

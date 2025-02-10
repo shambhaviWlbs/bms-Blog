@@ -1,0 +1,146 @@
+.draggable-ticket {
+  will-change: transform;
+  transition: transform 0.3s ease;
+}
+
+.draggable-ticket.disintegrating {
+  pointer-events: none;
+}
+
+/* Enhanced burning effect container */
+.ticket-burn-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Glowing edge effect */
+.burning-edges {
+  position: absolute;
+  inset: 0;
+  animation: edgeBurn 2.5s ease-in-out forwards;
+  box-shadow: 
+    0 0 20px 2px rgba(255, 77, 0, 0.5),
+    inset 0 0 10px rgba(255, 77, 0, 0.3);
+}
+
+/* Improved ember particles */
+.ember {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: #ff4d00;
+  border-radius: 50%;
+  filter: blur(1.5px);
+  box-shadow: 
+    0 0 4px #ff4d00,
+    0 0 8px #ff8c00;
+  animation: embers 2s ease-out forwards;
+  opacity: 0.8;
+}
+
+/* Enhanced char lines */
+.char-line {
+  position: absolute;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(0, 0, 0, 0.8),
+    transparent
+  );
+  height: 2px;
+  width: 0;
+  transition: width 0.5s ease-in;
+  box-shadow: 0 0 4px rgba(255, 69, 0, 0.6);
+}
+
+/* Burning particle effect */
+.burning-particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: radial-gradient(circle, #ff4d00, transparent 70%);
+  border-radius: 50%;
+  animation: float-up 2s ease-out forwards;
+  opacity: 0.7;
+}
+
+/* Animation Keyframes */
+@keyframes edgeBurn {
+  0% {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    background: linear-gradient(45deg, #ff4d00, #ff8c00);
+    opacity: 0;
+  }
+  100% {
+    clip-path: polygon(
+      var(--corner1-x) var(--corner1-y),
+      var(--corner2-x) var(--corner2-y),
+      var(--corner3-x) var(--corner3-y),
+      var(--corner4-x) var(--corner4-y)
+    );
+    background: linear-gradient(45deg, #ff4d00, #ff8c00);
+    opacity: 1;
+  }
+}
+
+@keyframes embers {
+  0% {
+    transform: translateY(0) translateX(0) rotate(0deg);
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: 
+      translateY(-120px) 
+      translateX(var(--x-offset)) 
+      rotate(var(--rotation));
+    opacity: 0;
+  }
+}
+
+@keyframes float-up {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(-100px) scale(0.2);
+    opacity: 0;
+  }
+}
+
+/* Paper curl and disintegration */
+.ticket-burn-effect {
+  animation: paperBurn 2.5s ease-in-out forwards;
+}
+
+@keyframes paperBurn {
+  0% {
+    filter: brightness(1);
+    transform: scale(1) rotate(0deg);
+  }
+  50% {
+    filter: brightness(1.2);
+    transform: scale(0.95) rotate(3deg);
+  }
+  100% {
+    filter: brightness(0.8);
+    transform: scale(0.9) rotate(6deg);
+  }
+}
+
+/* Additional overlay for better contrast */
+.burning-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at center,
+    transparent 30%,
+    rgba(255, 69, 0, 0.2) 70%,
+    rgba(255, 69, 0, 0.4) 100%
+  );
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}

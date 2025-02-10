@@ -1,6 +1,8 @@
 import './ColdplayBlog.css';
+import DraggableTicket from './DraggableTicket';
 import React, { useEffect, useState } from 'react';
 import TicketBoothAnimation from './TicketBoothAnimation';
+import TicketHuntGame from './TicketHuntGame'
 
 const ColdplayBlog = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -14,23 +16,52 @@ const ColdplayBlog = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+  const [ticketsBurned, setTicketsBurned] = useState(0);
 
+const handleTicketBurn = () => {
+  setTicketsBurned(prev => prev + 1);
+};
+useEffect(() => {
+  const handleScroll = () => {
+      const isScrolled = window.scrollY > 50;
+      setScrolled(isScrolled);
+      
+      // Update classes for mobile view
+      const heroSection = document.querySelector('.hero-section');
+      const titleWrapper = document.querySelector('.title-wrapper');
+      const contentContainer = document.querySelector('.content-container');
+      
+      if (isScrolled) {
+          heroSection?.classList.add('scrolled');
+          titleWrapper?.classList.add('scrolled');
+          contentContainer?.classList.add('scrolled');
+      } else {
+          heroSection?.classList.remove('scrolled');
+          titleWrapper?.classList.remove('scrolled');
+          contentContainer?.classList.remove('scrolled');
+      }
+  };
+
+  window.addEventListener('scroll', handleScroll);
+  return () => window.removeEventListener('scroll', handleScroll);
+}, []);
   return (
     <div className="blog-container">
-      <div className="fixed-background"></div>
-      <div className="content-wrapper">
-        {/* Hero Section */}
-        <div className="hero-section">
-          <div className={`hero-content ${scrolled ? 'scrolled' : ''}`}>
-            <div className="animation-wrapper">
-              <TicketBoothAnimation />
-            </div>
-            <div className="title-wrapper">
-              <h1 className="main-title">When Coldplay Tickets Go Cold</h1>
-              <h2 className="subtitle">Unpacking BookMyShow's Technical Meltdown</h2>
-            </div>
+    <div className="fixed-background"></div>
+    <div className="content-wrapper">
+      <div className="hero-section">
+        <div className={`hero-content ${scrolled ? 'scrolled' : ''}`}>
+          <div className="animation-wrapper">
+            <TicketBoothAnimation />
+          </div>
+          <div className="title-wrapper">
+            <h1 className="main-title">When Coldplay Tickets Go Cold</h1>
+            <h2 className="subtitle">Unpacking BookMyShow's Technical Meltdown</h2>
           </div>
         </div>
+      </div>
+      <TicketHuntGame onTicketBurn={handleTicketBurn} />
+      <DraggableTicket scrolled={scrolled} />
 
         <div className={`main-content ${scrolled ? 'scrolled' : ''}`}>
         {/* Rest of your content sections remain the same */}

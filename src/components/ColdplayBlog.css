@@ -1,4 +1,3 @@
-
 .vsc-initialized {
     margin: 0;
     place-items: center;
@@ -55,7 +54,7 @@
     top: 0;
     left: 0;
     width: 40%;
-    height: 100vh;
+    height: 112vh;
     z-index: 10;
     flex-direction: column;
     justify-content: center;
@@ -108,6 +107,7 @@
     font-size: 1.75rem;
     color: rgba(254, 243, 199, 0.8);
     line-height: 1.4;
+    padding-bottom: 11rem;
 }
 
 /* Main Content */
@@ -200,7 +200,7 @@
 
     .hero-content.scrolled .animation-wrapper {
         transform: scale(0.8);
-        margin-bottom: 2rem;
+        margin-bottom: 5rem;
     }
 
     .title-wrapper {
@@ -252,5 +252,479 @@
 
     .content-section {
         padding: 1.5rem;
+    }
+}
+/* Add to your ColdplayBlog.css file */
+
+/* Add this to your CSS file */
+@keyframes burn {
+    0% {
+      clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%);
+      opacity: 1;
+    }
+    100% {
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+      opacity: 0;
+    }
+  }
+  
+  @keyframes spread-fire {
+    0% {
+      height: 0;
+      opacity: 0;
+    }
+    30% {
+      opacity: 1;
+    }
+    100% {
+      height: 100%;
+      opacity: 0;
+    }
+  }
+  
+  @keyframes ember {
+    0% {
+      transform: translateY(0) translateX(0) scale(1);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(-100px) translateX(var(--tx)) scale(0);
+      opacity: 0;
+    }
+  }
+  
+  .burning {
+    position: relative;
+    animation: burn-away 1.5s ease-out forwards;
+    pointer-events: none;
+  }
+  
+  .burning::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    background: linear-gradient(to top, 
+      rgba(255, 68, 0, 0.8),
+      rgba(255, 168, 0, 0.6),
+      transparent
+    );
+    animation: spread-fire 1.5s ease-out forwards;
+  }
+  
+  .burning::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: black;
+    animation: burn 1.5s ease-out forwards;
+  }
+  
+  @keyframes burn-away {
+    0% {
+      transform: scale(1) rotate(0deg);
+      filter: brightness(1);
+    }
+    30% {
+      transform: scale(0.9) rotate(3deg);
+      filter: brightness(1.5);
+    }
+    60% {
+      transform: scale(0.6) rotate(-2deg);
+      filter: brightness(1.8);
+    }
+    100% {
+      transform: scale(0) rotate(5deg);
+      filter: brightness(2);
+    }
+  }
+  
+  /* Create multiple ember particles */
+  .burning::after {
+    content: '';
+  }
+  
+  .near-fire {
+    box-shadow: 
+      0 0 20px rgba(255, 160, 0, 0.6),
+      0 0 40px rgba(255, 160, 0, 0.3);
+    filter: brightness(1.2);
+    transition: all 0.3s ease;
+  }
+  
+  [id^="ticket-"] {
+    animation: appear 0.5s ease-out forwards;
+    opacity: 0;
+  }
+  
+  @keyframes appear {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: var(--initial-opacity, 1);
+      transform: translateY(0);
+    }
+  }
+  
+  /* Add subtle glow animation for hidden tickets */
+  @keyframes subtle-glow {
+    0%, 100% {
+      box-shadow: 0 0 5px rgba(255, 223, 0, 0.1);
+    }
+    50% {
+      box-shadow: 0 0 10px rgba(255, 223, 0, 0.2);
+    }
+  }
+  
+  [id^="ticket-"] {
+    --initial-opacity: attr(data-opacity);
+    animation: 
+      appear 0.5s ease-out forwards,
+      subtle-glow 3s infinite;
+  }
+  /* Add these mobile-specific styles to your existing CSS file */
+  @media (max-width: 768px) {
+    
+    .hero-section {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 260px; /* Taller initially to accommodate title */
+        z-index: 10;
+        background: rgba(23, 23, 23, 0.95);
+        transition: height 0.3s ease;
+        background-color: #2a1a43cc;
+
+    }
+
+    .hero-section.scrolled {
+        height: 180px; /* Shorter when scrolled */
+        background-color: #2a1a4300;
+
+    }
+
+    .hero-content {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .title-wrapper {
+        display: block; /* Show initially */
+        text-align: center;
+        padding: 0 20px;
+        transition: opacity 0.3s ease;
+    }
+
+    .title-wrapper.scrolled {
+        display: none;
+    }
+
+    .main-title {
+        font-size: 28px;
+        margin-bottom: 8px;
+        margin-top: 7rem;
+
+    }
+
+    .subtitle {
+        font-size: 16px;
+        padding-bottom: 0;
+    }
+
+    /* Create two separate containers */
+    .content-container {
+        position: relative;
+        width: 100%;
+        margin-top: 260px; /* Initial margin for title */
+        transition: margin-top 0.3s ease;
+    }
+
+    .content-container.scrolled {
+        margin-top: 180px; /* Adjusted margin when scrolled */
+    }
+
+    /* Main content area */
+    .main-content {
+        padding: 20px 16px;
+        margin-top: 25rem;
+        background: linear-gradient(to, #171717, #2D1B4B, #000000);
+        min-height: calc(100vh - 180px); /* Ensure content fills screen */
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .main-content.scrolled {
+        margin-left: 0;
+       
+    }
+
+    /* Content sections */
+    .content-section {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 12px;
+        padding: 24px 20px;
+        margin-bottom: 24px;
+        backdrop-filter: blur(4px);
+    }
+
+    .section-title {
+        color: #FDE68A;
+        margin-bottom: 20px;
+    }
+
+    .section-text {
+        color: #D1D5DB;
+    }
+
+    /* Prevent content overflow */
+    .content-wrapper {
+        position: relative;
+        overflow-x: hidden;
+    }
+    .ticket-booth {
+      width: 280px;
+      height: 380px;
+      margin-top: 35rem;
+  }
+}
+/* Mobile-specific layout adjustments */
+@media (max-width: 768px) {
+  .blog-container {
+      position: relative;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+  }
+
+  .hero-section {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 50vh;
+      z-index: 10;
+      background: linear-gradient(to bottom, #171717, #2D1B4B);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+  }
+
+  .hero-content {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+  }
+
+  .animation-wrapper {
+      width: 100%;
+      max-width: 300px;
+      height: auto;
+      margin-top: 1rem;
+  }
+
+  .ticket-booth-container {
+      transform: scale(0.8);
+      margin-top: 0;
+  }
+
+  .title-wrapper {
+      width: 100%;
+      text-align: center;
+      padding: 1rem;
+  }
+
+  .main-title {
+      font-size: 1.75rem;
+      margin-bottom: 0.5rem;
+  }
+
+  .subtitle {
+      font-size: 1rem;
+      padding-bottom: 0;
+  }
+
+  /* Scrollable content area */
+  .main-content {
+      position: fixed;
+      top: 50vh;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      overflow-y: auto;
+      background: linear-gradient(to bottom, #2D1B4B, #000000);
+      padding: 2rem 1rem;
+      margin: 0;
+      -webkit-overflow-scrolling: touch;
+  }
+
+  .content-section {
+      margin-bottom: 2rem;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(4px);
+  }
+
+  /* Remove scrolled classes as they're no longer needed */
+  .hero-content.scrolled,
+  .main-content.scrolled {
+      position: fixed;
+  }
+
+  /* Ensure the ticket booth stays centered */
+  .ticket-booth {
+      margin: 0 auto;
+      transform-origin: center top;
+  }
+}
+
+/* Animation keyframes for paper curl effect */
+@keyframes paperCurl {
+  0% {
+      transform: scale(1) rotate(0deg);
+  }
+  30% {
+      transform: scale(0.95) rotate(2deg);
+  }
+  100% {
+      transform: scale(0.9) rotate(5deg);
+  }
+}
+
+/* Update draggable ticket positioning for mobile */
+@media (max-width: 768px) {
+  .draggable-ticket {
+      top: 35vh !important;
+  }
+}
+/* Add these styles to your ColdplayBlog.css file */
+/* Find the section in ColdplayBlog.css that starts with mobile styles, around line 768, and replace or update the following sections */
+
+@media (max-width: 768px) {
+    .hero-section {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: auto;
+        min-height: 450px;
+        z-index: 10;
+        background: linear-gradient(to bottom, #171717, #2D1B4B);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: visible;
+        padding: 20px 0;
+    }
+
+    .ticket-booth-container {
+        width: 100%;
+        height: auto;
+        min-height: 400px;
+        margin-top: 0;
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .ticket-booth {
+        width: 280px;
+        height: 380px;
+        margin: 0 auto;
+        transform: scale(0.85);
+        transform-origin: center center;
+        position: relative;
+    }
+
+    .booth-window {
+        height: calc(100% - 130px);
+        position: relative;
+        overflow: visible;
+        background: #1a0404;
+        border: 6px solid #aa0000;
+    }
+
+    .window-glass {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 30px;
+        background: linear-gradient(135deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.3));
+        border-radius: 8px 8px 0 0;
+    }
+
+    .flame-container {
+        position: relative;
+        width: 160px;
+        height: 160px;
+        margin: 10px auto;
+        transform: scale(0.9);
+    }
+
+    .animation-wrapper {
+        width: 100%;
+        height: auto;
+        transform: scale(1);
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .hero-content {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        padding-top: 2rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+    }
+
+    .title-wrapper {
+        width: 100%;
+        text-align: center;
+        padding: 1rem;
+    }
+
+    .main-content {
+        position: relative;
+        padding: 20px 16px;
+        margin-top: 0;
+        background: linear-gradient(to bottom, #2D1B4B, #000000);
+    }
+}
+
+/* Additional fixes for very small screens */
+@media (max-width: 380px) {
+    .ticket-booth {
+        transform: scale(0.75);
+    }
+
+    .hero-section {
+        min-height: 400px;
+    }
+}
+@media (min-width: 600px) and (max-width: 1024px) {
+    .ticket-booth-container{
+        top: 7rem;
     }
 }
